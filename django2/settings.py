@@ -14,13 +14,29 @@ from pathlib import Path
 import os
 import dj_database_url
 
-#Usando postgreesql com heroku
-DATABASES = {
-    'default': dj_database_url.config()
-}
+ON_HEROKU = os.environ.get('ON_HEROKU')
+HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+#Usando postgreesql com heroku
+
+if ON_HEROKU:
+    DATABASE_URL = 'postgresql://<postgresql>'
+    DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django2',
+            'USER': 'root',
+            'PASSWORD': '123456',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +46,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@&^b^!emwszdk7bg2cwrgmw&da0cmnrlzin8q&z004*ul!oi*0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -51,7 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,16 +100,7 @@ WSGI_APPLICATION = 'django2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 """
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django2',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+
 """
 
 # Password validation
