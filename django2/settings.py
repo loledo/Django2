@@ -22,22 +22,22 @@ HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 BASE_DIR = Path(__file__).resolve().parent.parent
 #Usando postgreesql com heroku
 
-if ON_HEROKU:
-    DATABASE_URL = 'postgresql://<postgresql>'
-    DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'django2',
-            'USER': 'root',
-            'PASSWORD': '123456',
-            'HOST': 'localhost',
-            'PORT': '3306',
-        }
+DATABASE_URL = 'postgresql://<postgresql>'
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django2',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
-
+}
+"""
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
