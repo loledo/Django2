@@ -22,10 +22,9 @@ HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Usando postgreesql com heroku
 
+DATABASE_URL = 'postgresql://<postgresql>'
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 
-DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-}
 """
 DATABASES = {
     'default': {
